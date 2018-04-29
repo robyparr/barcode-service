@@ -13,14 +13,15 @@ defmodule BarcodeServiceWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", BarcodeServiceWeb do
+  scope "/admin", BarcodeServiceWeb do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", BarcodeServiceWeb do
-  #   pipe_through :api
-  # end
+  scope "/", BarcodeServiceWeb do
+    pipe_through :api
+
+    resources "/barcodes", BarcodeController, only: [:create]
+  end
 end
