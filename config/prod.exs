@@ -22,6 +22,15 @@ config :barcode_service, BarcodeServiceWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+# Scout APM config
+config :scout_apm,
+  name: "Barcode Service",
+  key: System.get_env("SCOUT_APM_KEY")
+
+config :phoenix, :template_engines,
+  eex: ScoutApm.Instruments.EExEngine,
+  exs: ScoutApm.Instruments.ExsEngine
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

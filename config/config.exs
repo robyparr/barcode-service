@@ -7,7 +7,9 @@ use Mix.Config
 
 # General application configuration
 config :barcode_service,
-  ecto_repos: [BarcodeService.Repo]
+  ecto_repos: [BarcodeService.Repo],
+  loggers: [{Ecto.LogEntry, :log, []},
+            {ScoutApm.Instruments.EctoLogger, :log, []}]
 
 # Configures the endpoint
 config :barcode_service, BarcodeServiceWeb.Endpoint,

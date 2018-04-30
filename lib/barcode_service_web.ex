@@ -20,6 +20,7 @@ defmodule BarcodeServiceWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: BarcodeServiceWeb
+      use ScoutApm.Instrumentation
       import Plug.Conn
       import BarcodeServiceWeb.Router.Helpers
       import BarcodeServiceWeb.Gettext

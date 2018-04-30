@@ -20,7 +20,7 @@ defmodule BarcodeService.Mixfile do
   def application do
     [
       mod: {BarcodeService.Application, []},
-      extra_applications: [:logger, :runtime_tools, :barlix]
+      extra_applications: [:logger, :runtime_tools, :barlix, :scout_apm]
     ]
   end
 
@@ -42,7 +42,8 @@ defmodule BarcodeService.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:barlix, "~> 0.3.3"},
-      {:qrcode, git: "https://gitlab.com/Pacodastre/qrcode.git", runtime: false}
+      {:qrcode, git: "https://gitlab.com/Pacodastre/qrcode.git", runtime: false},
+      {:scout_apm, "~> 0.4.2"}
     ]
   end
 
