@@ -4,13 +4,31 @@ defmodule BarcodeService.BarcodesTest do
   alias BarcodeService.Barcodes
 
   describe "barcodes" do
-    @valid_attrs %{"type" => "code_128", "value" => "my barcode"}
+    @valid_attrs %{"type" => "code_128", "value" => "my barcode",
+      "output_format" => "png"}
 
-    test "create_barcode/2 creates a base64 encoded barcode" do
+    test "create_barcode/3 creates a base64 encoded barcode" do
+      %{"type" => type, "value" => value, "output_format" => format} = @valid_attrs
+      {:ok, encoded_barcode} = Barcodes.create_barcode(type, value, format)
+      assert String.length(encoded_barcode) > 0
+    end
+
+    test "create_barcode/3 returns an error if no format is specified" do
       %{"type" => type, "value" => value} = @valid_attrs
-      {:ok, data } = Barcodes.create_barcode(type, value)
-      assert String.length(data["barcode_data"]) > 0
-      assert String.length(data["barcode_data_format"]) > 0
+      {:error, message} = Barcodes.create_barcode(type, value, nil)
+      assert message == "Output format not specified."
+    end
+
+    test "create_barcode/3 returns an error if an unsupported barcode type is specified" do
+      %{"value" => value, "output_format" => format} = @valid_attrs
+      {:error, message} = Barcodes.create_barcode("bad_type", value, format)
+      assert message == "Unsupported barcode type."
+    end
+
+    test "create_barcode/3 creates a QR code" do
+      %{"value" => value, "output_format" => format} = @valid_attrs
+      {:ok, encoded_barcode} = Barcodes.create_barcode("qr_code", value, format)
+      assert String.length(encoded_barcode) > 0
     end
 
     test "create_barcodes!/1 creates multiple base64 encoded barcodes" do

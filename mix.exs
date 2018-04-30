@@ -41,7 +41,8 @@ defmodule BarcodeService.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:barlix, "~> 0.3.3"}
+      {:barlix, "~> 0.3.3"},
+      {:qrcode, git: "https://gitlab.com/Pacodastre/qrcode.git", runtime: false}
     ]
   end
 

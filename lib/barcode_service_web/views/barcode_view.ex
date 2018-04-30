@@ -15,7 +15,7 @@ defmodule BarcodeServiceWeb.BarcodeView do
         Map.merge(base_response, %{error: barcode.error})
       false ->
         Map.merge(base_response, %{barcode_data: barcode["barcode_data"],
-          barcode_data_format: barcode["barcode_data_format"]})
+          output_format: barcode["output_format"]})
     end
   end
 end

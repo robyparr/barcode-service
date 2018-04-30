@@ -40,7 +40,8 @@ mix phx.server
   "barcodes": [
     {
       "type": "code_128",
-      "value": "my barcode value"
+      "value": "my barcode value",
+      "output_format": "png"
     }
   ]
 }
@@ -48,10 +49,11 @@ mix phx.server
 
 |Field|Type|Description|
 |-----|----|-----------|
-|type|string|Type of barcode to generate. See supported codes list below.|
+|type|string|Type of barcode to generate; one of `code_128` or `qr_code`.|
 |value|string|The barcode's value.|
+|output_format|string|The format to output the barcode in. Currently only supprots `png`.|
 
-**Response**
+#### Response
 
 ```
 {
@@ -71,5 +73,4 @@ mix phx.server
 |-----|----|-----------|
 |has_errors|boolean|True if there were any errors during generation. Errors will be embedded within the barcodes that have errors.|
 |barcodes|array|An array of barcodes with the original request data and newly generated data.|
-|barcodes.barcode_data_format|string|The format of the generated barcode.|
 |barcodes.barcode_data|string|Base64-encoded barcode.|

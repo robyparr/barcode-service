@@ -1,8 +1,10 @@
 defmodule BarcodeServiceWeb.BarcodeControllerTest do
   use BarcodeServiceWeb.ConnCase
 
-  @create_attrs [%{"type" => "code_128", "value" => "my barcode"}]
-  @invalid_attrs [%{"type" => "code_bad", "value" => "my barcode"}]
+  @create_attrs [%{ "type" => "code_128", "value" => "my barcode",
+    "output_format" => "png"}]
+  @invalid_attrs [%{"type" => "code_bad", "value" => "my barcode",
+    "output_format" => "png"}]
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -18,12 +20,12 @@ defmodule BarcodeServiceWeb.BarcodeControllerTest do
         "barcodes" => [%{
           "type" => ^type,
           "value" => ^value,
-          "barcode_data" => encoded_barcode_data,
-          "barcode_data_format" => barcode_data_format
+          "barcode_data" => barcode_data,
+          "output_format" => output_format
         }]
       } = json_response(conn, 200)
-      assert String.length(encoded_barcode_data) > 0
-      assert String.length(barcode_data_format) > 0
+      assert String.length(barcode_data) > 0
+      assert String.length(output_format) > 0
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
